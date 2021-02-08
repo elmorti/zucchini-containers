@@ -1,0 +1,9 @@
+FROM docker.elastic.co/kibana/kibana:7.4.2
+
+ENV UID=1234 \
+    GID=1234
+
+USER root
+RUN usermod -u $UID kibana && groupmod -g $GID kibana
+
+USER kibana

@@ -1,0 +1,10 @@
+FROM docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+
+ENV UID=1234 \
+    GID=1234
+
+RUN usermod -u $UID elasticsearch \
+ && groupmod -g $GID elasticsearch \
+ && chown -R elasticsearch /usr/share/elasticsearch
+
+USER elasticsearch
