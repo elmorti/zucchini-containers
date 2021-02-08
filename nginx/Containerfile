@@ -1,0 +1,11 @@
+FROM nginx:alpine
+
+ARG ZUCCHINI_USER=notroot
+ARG ZUCCHINI_HOME=/home/notroot
+ARG ZUCCHINI_GECOS="Better never use root"
+ARG ZUCCHINI_UID=1234
+
+RUN adduser -D ${ZUCCHINI_USER} -h ${ZUCCHINI_HOME} -g ${ZUCCHINI_GECOS} -u ${ZUCCHINI_UID} \
+    && apk update && apk add bash
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
