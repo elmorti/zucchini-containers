@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db-dev:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=devpassword
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+    volumes:
+      - nextcloud_db:/var/lib/mysql
+
+  app-dev:
+    image: nextcloud:fpm
+    links:
+      - db-dev
+      - cache-dev
+    tty: true
+    volumes:
+      - nextcloud_app:/var/www/html
+
+  nginx-dev:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    links:
+      - app-dev
+    volumes:
+      - nextcloud_app:/var/www/html
+      - ./conf/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+
+  cache-dev:
+    image: redis:alpine
+    volumes:
+      - nextcloud_cache:/data
+
+volumes:
+  nextcloud_db:
+  nextcloud_cache:
+  nextcloud_app:
