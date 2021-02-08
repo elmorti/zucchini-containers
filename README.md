@@ -1,0 +1,3 @@
+# Zucchini Universe - Container collection
+
+Collection of Containerfiles / Dockerfiles used in Zucchini Universe for production, testing, experimenting...
