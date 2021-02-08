@@ -1,0 +1,23 @@
+version: "3"
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - zucchini
+    volumes:
+      - ./config/loki-config.yaml:/etc/loki/loki-config.yaml
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - /var/log:/var/log
+      - ./config/promtail-config.yaml:/etc/promtail/promtail-config.yaml
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    networks:
+      - zucchini
+    links:
+      - loki
+networks:
+  zucchini:
