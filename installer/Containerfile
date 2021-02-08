@@ -1,0 +1,11 @@
+FROM alpine:latest
+
+LABEL maintainer Zucchini Universe <zucchini@zucchiniuniverse.org>
+
+RUN apk --no-cache update && \
+    apk --no-cache upgrade && \
+    apk add bash syslinux dnsmasq && \
+    cp -a /usr/share/syslinux/* /var/tftpboot && \
+    mkdir /var/tftpboot/pxelinux.cfg
+
+ENTRYPOINT [ "dnsmasq", "-C", "/etc/dnsmasq.conf", "-d" ]

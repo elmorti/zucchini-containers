@@ -1,0 +1,1 @@
+{"execute": "add_hostfwd", "arguments": {"proto": "tcp", "host_addr": "0.0.0.0", "host_port": 80, "guest_addr": "10.0.2.100", "guest_port": 80}}
