@@ -11,7 +11,7 @@ fi
 
 source ./${1}
 
-${PODMAN}run --rm -d -it --name ${NAME} --privileged \
+${PODMAN} run --rm -d -it --name ${NAME} --privileged \
   -v $(pwd)/${1}:/config \
   ${VOLUMES[*]} \
   ${SERVICES[*]} \
