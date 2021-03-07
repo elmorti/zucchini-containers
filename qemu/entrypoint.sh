@@ -8,4 +8,4 @@ fi
 
 source ./config
 
-qemu-system-x86_64 ${QEMUOPTS[*]}
+${EMULATOR} ${QEMUOPTS[*]}

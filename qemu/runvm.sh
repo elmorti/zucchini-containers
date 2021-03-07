@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PODMAN=$(whereis podman)
+PODMAN=$(which podman)
 IMAGE="zucchini-qemu:latest"
 
 if [ $# -lt 1 ] || [ ! -f ${1} ]
@@ -11,7 +11,7 @@ fi
 
 source ./${1}
 
-${PODMAN} run --rm -d -it --name ${NAME} --privileged \
+${PODMAN}run --rm -d -it --name ${NAME} --privileged \
   -v $(pwd)/${1}:/config \
   ${VOLUMES[*]} \
   ${SERVICES[*]} \
