@@ -1,0 +1,7 @@
+FROM alpine:latest
+
+RUN apk update && apk add bash qemu-system-x86_64 qemu-img
+
+COPY entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
