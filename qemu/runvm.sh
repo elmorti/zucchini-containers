@@ -9,10 +9,10 @@ then
   exit 1
 fi
 
-source ${1}
+source $(realpath ${1})
 
 ${PODMAN} run --rm -it --name ${NAME} --privileged \
-  -v ${1}:/config \
+  -v $(realpath ${1}):/config \
   ${VOLUMES[*]} \
   ${SERVICES[*]} \
   ${IMAGE}
