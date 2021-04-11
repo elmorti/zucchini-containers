@@ -4,7 +4,7 @@ ARG ZUCCHINI_USER=zucchini
 ARG ZUCCHINI_GECOS="Zucchini Universe"
 ARG ZUCCHINI_HOME=/home/zucchini
 ARG ZUCCHINI_UID=1305
-ENV PANEL_VERSION=v1.2.2 \
+ENV PANEL_VERSION=latest \
     APP_ROOT=${ZUCCHINI_HOME}/panel \
     LOGS_ROOT=${ZUCCHINI_HOME}/logs \
     BIN_ROOT=${ZUCCHINI_HOME}/bin \
@@ -26,8 +26,8 @@ USER ${ZUCCHINI_USER}
 
 WORKDIR ${APP_ROOT}
 
-RUN curl -Lo "${PANEL_VERSION}.tar.gz" https://github.com/pterodactyl/panel/releases/download/${PANEL_VERSION}/panel.tar.gz \
-    && tar -xzvf ${PANEL_VERSION}.tar.gz && rm "${PANEL_VERSION}.tar.gz" \
+RUN curl -Lo "panel_${PANEL_VERSION}.tar.gz" https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz \
+    && tar -xzvf panel_${PANEL_VERSION}.tar.gz && rm "panel_${PANEL_VERSION}.tar.gz" \
     && chmod -R 755 storage/* bootstrap/cache \
     && echo "APP_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)" > .env \
     && composer install --ansi --no-dev --optimize-autoloader
