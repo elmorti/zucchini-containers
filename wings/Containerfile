@@ -1,17 +1,9 @@
 FROM alpine:latest
-ARG ZUCCHINI_USER=zucchini
-ARG ZUCCHINI_HOME=/home/zucchini
-ARG ZUCCHINI_GECOS="Zucchini Universe"
-ARG ZUCCHINI_UID=1305
-ARG VERSION="v1.1.3"
+ARG VERSION="v1.2.3"
 
-RUN adduser -D ${ZUCCHINI_USER} -h ${ZUCCHINI_HOME} -g ${ZUCCHINI_GECOS} -u ${ZUCCHINI_UID} \
-  && apk update && apk add bash curl && \
+RUN apk update && apk add bash curl && \
   mkdir -p /etc/pterodactyl && \
   curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/${VERSION}/wings_linux_amd64 && \
-  chgrp ${ZUCCHINI_USER} /etc/pterodactyl && chmod 0770 /etc/pterodactyl && \
-  chgrp ${ZUCCHINI_USER} /usr/local/bin/wings && chmod 0770 /usr/local/bin/wings
-
-USER zucchini
+  chmod 0770 /etc/pterodactyl && chmod 0770 /usr/local/bin/wings
 
 CMD [ "wings", "--config", "/etc/pterodactyl/config.yml" ]

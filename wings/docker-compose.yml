@@ -5,15 +5,10 @@ services:
     ports:
       - "18080:18080"
       - "12022:12022"
-    user: "root"
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /srv/wings/var/lib/pterodactyl:/srv/wings/var/lib/pterodactyl
-      - /srv/wings/var/log/pterodactyl:/srv/wings/var/log/pterodactyl
-      - /srv/wings/var/lib/pterodactyl/volumes:/srv/wings/var/lib/pterodactyl/volumes
-      - /srv/wings/var/lib/pterodactyl/archives:/srv/wings/var/lib/pterodactyl/archives
-      - /srv/wings/var/lib/pterodactyl/backups:/srv/wings/var/lib/pterodactyl/backups
+      - /srv/wings:/srv/wings
       - /tmp/pterodactyl:/tmp/pterodactyl
       - ~/github/zucchini-configs/acme/config/elmorti.org/fullchain.cer:/etc/letsencrypt/live/wings001/fullchain.pem
       - ~/github/zucchini-configs/acme/config/elmorti.org/elmorti.org.key:/etc/letsencrypt/live/wings001/privkey.pem
