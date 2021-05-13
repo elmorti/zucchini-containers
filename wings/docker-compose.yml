@@ -7,7 +7,6 @@ services:
       - "12022:12022"
     tty: true
     volumes:
-      - /home/elmorti/certs:/home/zucchini/certs
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/wings:/srv/wings
       - /tmp/pterodactyl:/tmp/pterodactyl
