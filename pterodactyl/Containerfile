@@ -16,8 +16,10 @@ COPY ./files ${ZUCCHINI_HOME}
 
 RUN adduser -D ${ZUCCHINI_USER} -h ${ZUCCHINI_HOME} -g ${ZUCCHINI_GECOS} -u ${ZUCCHINI_UID} \
     && apk update && apk add bash supervisor curl \
-    php7 php7-curl php7-dom php7-fpm php7-fileinfo php7-json php7-openssl php7-gd php7-mbstring php7-pdo_mysql \
-    php7-zip php7-simplexml php7-tokenizer php7-bcmath php7-curl php7-phar php7-session php7-xml php7-xmlwriter \
+    php8 php8-curl php8-dom php8-fpm php8-fileinfo php8-json php8-openssl php8-gd php8-mbstring php8-pdo_mysql \
+    php8-zip php8-simplexml php8-tokenizer php8-bcmath php8-curl php8-phar php8-session php8-xml php8-xmlwriter \
+    && ln -sf $(which php8) /usr/bin/php \
+    && ln -sf $(which php-fpm8) /usr/sbin/php-fpm \
     && rm -f /etc/supervisord.conf && ln -s ${ZUCCHINI_HOME}/etc/supervisord.conf /etc/supervisord.conf \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && mkdir -p ${APP_ROOT} && chown -R ${ZUCCHINI_USER}:${ZUCCHINI_USER} ${ZUCCHINI_HOME} 
@@ -38,7 +40,7 @@ RUN rm -rf ${APP_ROOT}/storage \
     && mkdir -p ${APP_ROOT}/storage/framework/sessions \
     && mkdir -p ${APP_ROOT}/storage/framework/views \
     && mkdir -p ${LOGS_ROOT}/supervisord \
-    && mkdir -p ${LOGS_ROOT}/php7-fpm \
+    && mkdir -p ${LOGS_ROOT}/php-fpm \
     && mkdir -p ${LOGS_ROOT}/panel \
     && mkdir -p ${TMP_ROOT} \
     && ln -s ${LOGS_ROOT}/panel ${APP_ROOT}/storage/logs \
