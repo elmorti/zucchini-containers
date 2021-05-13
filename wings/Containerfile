@@ -1,9 +1,9 @@
 FROM alpine:latest
-ARG VERSION="v1.2.3"
+ARG VERSION="latest"
 
 RUN apk update && apk add bash curl && \
   mkdir -p /etc/pterodactyl && \
-  curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/${VERSION}/wings_linux_amd64 && \
+  curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64 && \
   chmod 0770 /etc/pterodactyl && chmod 0770 /usr/local/bin/wings
 
 CMD [ "wings", "--config", "/etc/pterodactyl/config.yml" ]

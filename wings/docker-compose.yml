@@ -11,7 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/wings:/srv/wings
       - /tmp/pterodactyl:/tmp/pterodactyl
-      - ~/github/zucchini-configs/certs/elmorti.org/fullchain.cer:/etc/letsencrypt/live/elmorti004.elmorti.org/fullchain.pem
-      - ~/github/zucchini-configs/certs/elmorti.org/elmorti.org.key:/etc/letsencrypt/live/elmorti004.elmorti.org/privkey.pem
+      - ~/github/zucchini-configs/acme/config/elmorti.org/fullchain.cer:/etc/letsencrypt/live/wings001/fullchain.pem
+      - ~/github/zucchini-configs/acme/config/elmorti.org/elmorti.org.key:/etc/letsencrypt/live/wings001/privkey.pem
       - ~/github/zucchini-configs/pterodactyl/wings/elmorti004.config.yml:/etc/pterodactyl/config.yml
       - /usr/bin/timedatectl:/usr/bin/timedatectl
