@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# Podman pod config file
+
+# Common options
+
+# Sets --name and --hostname
+PODNAME="test-pod"
+HOSTNAME=${PODNAME}
+
+# Sets --publish
+SERVICES=(
+  "-p 9000:9000/tcp" 
+)
+
+# For --network=slirp4netns (rootless)
+SLIRP4NETNS=(
+	"allow_host_loopback=true|false"
+	"cidr=CIDR"
+	"enable_ipv6=true|false"
+	"outbound_addr=INTERFACE"
+	"outbound_addr=IPv4"
+	"outbound_addr6=INTERFACE"
+	"outbound_addr6=IPv6"
+	"port_handler=rootlesskit"
+	"port_handler=slirp4netns"
+)
+
+# Sets --network and can be slirp4netns|bridge|host
+NETWORK="slirp4netns"
+
+EXTRA=(
+	"--add-host=host:ip"
+	"--cgroup-parent=path"
+	"--dns=ipaddr"
+	"--dns-opt=option"
+	"--dns-search=domain"
+	"--infra=true|false"
+	"--infra-conmon-pidfile=file"
+	"--infra-command=command"
+	"--infra-image=image"
+	"--ip=ipaddr"
+	"--label=label"
+	"--label-file=label"
+	"--mac-address=address"
+	"--network-alias=strings"
+	"--no-hosts=true|false"
+	"--pod-id-file=path"
+	"--replace=true|false"
+	"--share=namespace ipc, net, pid, uts"
+)
