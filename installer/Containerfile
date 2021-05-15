@@ -5,7 +5,7 @@ LABEL maintainer Zucchini Universe <zucchini@zucchiniuniverse.org>
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk add bash syslinux dnsmasq && \
-    cp -a /usr/share/syslinux/* /var/tftpboot && \
-    mkdir /var/tftpboot/pxelinux.cfg
+    mkdir -p /var/tftpboot/pxelinux.cfg && \
+    cp -a /usr/share/syslinux/* /var/tftpboot
 
 ENTRYPOINT [ "dnsmasq", "-C", "/etc/dnsmasq.conf", "-d" ]
