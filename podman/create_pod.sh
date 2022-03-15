@@ -44,7 +44,7 @@ $PODMAN pod create --hostname ${PODNAME} \
  --infra \
  --name ${PODNAME} \
  ${SERVICES[*]} \
- --network=host \
+ --network=${NETWORK} \
  --replace
 
 CONTAINERS=$(ls -1 ${1}/*.container.config)
