@@ -1,0 +1,14 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: elmorti
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBh93LCERUP0lG79QiC0kuX/047xcweAHUu6LGuoj2DI
+
+storage:
+  files:
+    - path: /etc/sysctl.d/20-silence-audit.conf
+      contents:
+        inline: |
+          kernel.printk=1 4 1 3

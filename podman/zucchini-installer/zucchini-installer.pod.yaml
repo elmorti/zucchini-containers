@@ -1,0 +1,83 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-3.4.4
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    bind-mount-options:/root/images: Z
+    bind-mount-options:/root/zucchini-containers/podman/zucchini-installer/config/dnsmasq/dnsmasq.conf: Z
+    bind-mount-options:/root/zucchini-containers/podman/zucchini-installer/config/dnsmasq/dnsmasq.d: Z
+    bind-mount-options:/root/zucchini-containers/podman/zucchini-installer/config/ignition: Z
+    bind-mount-options:/root/zucchini-containers/podman/zucchini-installer/config/nginx: Z
+    bind-mount-options:/root/zucchini-containers/podman/zucchini-installer/config/pxelinux/pxelinux.default.cfg: Z
+  creationTimestamp: "2022-03-15T11:13:29Z"
+  labels:
+    app: zucchini-installer
+  name: zucchini-installer
+spec:
+  containers:
+  - image: localhost/zucchini-pxe:latest
+    name: dnsmasq
+    resources: {}
+    securityContext:
+      privileged: true
+      seLinuxOptions:
+        type: spc_t
+    volumeMounts:
+    - mountPath: /etc/dnsmasq.d
+      name: root-zucchini-containers-podman-zucchini-installer-config-dnsmasq-dnsmasq.d-host-0
+    - mountPath: /var/tftpboot/pxelinux.cfg/default
+      name: root-zucchini-containers-podman-zucchini-installer-config-pxelinux-pxelinux.default.cfg-host-1
+    - mountPath: /var/tftpboot/images
+      name: root-images-host-2
+    - mountPath: /etc/dnsmasq.conf
+      name: root-zucchini-containers-podman-zucchini-installer-config-dnsmasq-dnsmasq.conf-host-3
+  - args:
+    - nginx
+    - -g
+    - daemon off;
+    image: docker.io/library/nginx:latest
+    name: nginx
+    resources: {}
+    securityContext:
+      privileged: true
+      seLinuxOptions:
+        type: spc_t
+    volumeMounts:
+    - mountPath: /etc/nginx
+      name: root-zucchini-containers-podman-zucchini-installer-config-nginx-host-0
+    - mountPath: /ignition
+      name: root-zucchini-containers-podman-zucchini-installer-config-ignition-host-1
+    - mountPath: /images
+      name: root-images-host-2
+  hostNetwork: true
+  restartPolicy: Never
+  volumes:
+  - hostPath:
+      path: /root/zucchini-containers/podman/zucchini-installer/config/dnsmasq/dnsmasq.d
+      type: Directory
+    name: root-zucchini-containers-podman-zucchini-installer-config-dnsmasq-dnsmasq.d-host-0
+  - hostPath:
+      path: /root/zucchini-containers/podman/zucchini-installer/config/pxelinux/pxelinux.default.cfg
+      type: File
+    name: root-zucchini-containers-podman-zucchini-installer-config-pxelinux-pxelinux.default.cfg-host-1
+  - hostPath:
+      path: /root/images
+      type: Directory
+    name: root-images-host-2
+  - hostPath:
+      path: /root/zucchini-containers/podman/zucchini-installer/config/dnsmasq/dnsmasq.conf
+      type: File
+    name: root-zucchini-containers-podman-zucchini-installer-config-dnsmasq-dnsmasq.conf-host-3
+  - hostPath:
+      path: /root/zucchini-containers/podman/zucchini-installer/config/nginx
+      type: Directory
+    name: root-zucchini-containers-podman-zucchini-installer-config-nginx-host-0
+  - hostPath:
+      path: /root/zucchini-containers/podman/zucchini-installer/config/ignition
+      type: Directory
+    name: root-zucchini-containers-podman-zucchini-installer-config-ignition-host-1
+status: {}
+

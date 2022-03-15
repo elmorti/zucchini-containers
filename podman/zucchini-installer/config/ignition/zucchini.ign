@@ -1,0 +1,25 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "elmorti",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBh93LCERUP0lG79QiC0kuX/047xcweAHUu6LGuoj2DI"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/sysctl.d/20-silence-audit.conf",
+        "contents": {
+          "source": "data:,kernel.printk%3D1%204%201%203%0A"
+        }
+      }
+    ]
+  }
+}
