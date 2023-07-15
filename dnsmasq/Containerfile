@@ -1,9 +1,10 @@
-FROM alpine:latest
+FROM ubi9:latest
 
 LABEL maintainer Zucchini Universe <zucchini@zucchiniuniverse.org>
 
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk add --no-cache bash dnsmasq
+RUN dnf -y update --noplugins \
+    dnf -y --noplugins install dnsmasq
+    
+# Add this packages for troubleshooting: iproute
 
 ENTRYPOINT [ "dnsmasq", "-C", "/etc/dnsmasq.conf", "-d" ]
